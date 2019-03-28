@@ -1,0 +1,32 @@
+
+{
+    "name": "biergit",
+    "short_name": "biergit",
+    "background_color": "#FFFFFF",
+    "theme_color": "#673ab7",
+    "description": "invite friends and spend a beer",
+    "display": "standalone",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "/static/icon144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
+      {
+        "src": "/static/icon512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      },
+      {
+        "src": "/static/icon192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "favicon.ico",
+        "type": "image/x-icon",
+        "sizes": "64x64 32x32 24x24 16x16"
+      }
+    ]
+  }
