@@ -1,8 +1,8 @@
-import React from 'react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 import Link from 'next/link';
+import React from 'react';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,13 +16,13 @@ function About() {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom={true}>
         ABOUT
       </Typography>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" gutterBottom={true}>
         about page
       </Typography>
-      <Typography gutterBottom>
+      <Typography gutterBottom={true}>
         <Link href="/">
           <a>Home</a>
         </Link>

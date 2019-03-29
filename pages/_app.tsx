@@ -1,11 +1,13 @@
-import React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
-import { StylesProvider, ThemeProvider } from '@material-ui/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import React from 'react';
 import getPageContext, { PageContext } from '../src/getPageContext';
 
 class MyApp extends App {
+
+  private pageContext: PageContext;
   constructor() {
     // @ts-ignore
     super();
@@ -46,8 +48,6 @@ class MyApp extends App {
       </Container>
     );
   }
-
-  private pageContext: PageContext;
 }
 
 export default MyApp;

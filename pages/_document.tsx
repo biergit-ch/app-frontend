@@ -30,7 +30,7 @@ class MyDocument extends Document<{
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="mobile-web-app-capable" content="yes" />
           <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
-          <link rel="manifest" href="/static/manifest.json"></link>
+          <link rel="manifest" href="/static/manifest.json" />
           <link rel="apple-touch-icon" href="/static/images/bier.png" />
           <link
             rel="stylesheet"
