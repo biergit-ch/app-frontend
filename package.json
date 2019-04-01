@@ -16,6 +16,8 @@
     "@material-ui/core": "next",
     "@material-ui/styles": "next",
     "@zeit/next-typescript": "^1.1.1",
+    "auth0-js": "latest",
+    "autobind-decorator": "^2.4.0",
     "jss": "next",
     "next": "latest",
     "react": "latest",
@@ -23,6 +25,8 @@
     "styled-jsx": "^3.2.1"
   },
   "devDependencies": {
+    "@types/auth0-js": "^8.11.11",
+    "@types/history": "^4.7.2",
     "@types/material-ui": "^0.21.6",
     "@types/next": "^8.0.3",
     "@types/react": "^16.7.17",
