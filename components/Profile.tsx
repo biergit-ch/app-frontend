@@ -37,16 +37,19 @@ export interface ProfileProps {
 
 function Profile(props: ProfileProps) {
   const classes = useStyles({});
+  // tslint:disable-next-line:no-debugger
   debugger;
   const [userProfile, setUserProfile] = React.useState<UserProfile>(props.auth.userProfile);
 
   React.useEffect(() => {
+    // tslint:disable-next-line:no-debugger
     debugger;
     props.auth.getProfile().then((res: UserProfile) => {
       setUserProfile(res);
     })
     // Specify how to clean up after this effect:
     return function cleanup() {
+      // tslint:disable-next-line:no-console
       console.log("Cleanup");
     };
   });
