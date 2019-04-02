@@ -3,8 +3,8 @@ import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
 import React, { ErrorInfo } from 'react';
-import { WebAuthentication } from '../src/auth';
 import getPageContext, { PageContext } from '../src/getPageContext';
+import { WebAuthentication } from '../src/utils/auth/WebAuthentication';
 
 class MyApp extends App {
 
@@ -25,7 +25,7 @@ class MyApp extends App {
     }
   }
 
-  componentDidCatch (error : Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // tslint:disable-next-line:no-console
     console.log('CUSTOM ERROR HANDLING', error)
     // This is needed to render errors correctly in development / production

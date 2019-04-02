@@ -1,5 +1,5 @@
 import { Auth0DecodedHash } from 'auth0-js';
-import { UserProfile } from './../models';
+import { UserProfile } from '../../models';
 
 /**
  * Auth0 authentication contract
@@ -62,5 +62,5 @@ export interface Auth0Authentication {
    * @returns {boolean}
    * @memberof Auth0Authentication
    */
-  userHasScopes(scopes: Array<string>): boolean;
+  userHasScopes(scopes: string[]): boolean;
 }
