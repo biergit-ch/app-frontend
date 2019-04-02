@@ -36,8 +36,12 @@ const nextConfig = {
 };
 
 module.exports = moduleExists('next-offline') ? withOffline(withTypescript({
-    webpack: (nextConfig) => {
+    webpack: (nextConfig, options) => {
         nextConfig.plugins.push(new webpack.EnvironmentPlugin(localEnv));
+        nextConfig.module.rules.push({
+            test: /\.svg$/,
+            loader: 'svg-inline-loader'
+        });
         return nextConfig;
     }
 })) : nextConfig

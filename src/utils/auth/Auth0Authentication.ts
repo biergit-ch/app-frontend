@@ -26,7 +26,7 @@ export interface Auth0Authentication {
    * @type {UserProfile}
    * @memberof Auth0Authentication
    */
-  readonly userProfile: UserProfile | null;
+  readonly userProfile: UserProfile;
   /**
    * Start authentication session
    * @memberof Auth0Authentication
@@ -62,5 +62,5 @@ export interface Auth0Authentication {
    * @returns {boolean}
    * @memberof Auth0Authentication
    */
-  userHasScopes(scopes: string[]): boolean;
+  userHasScopes(scopes: Array<string>): boolean;
 }

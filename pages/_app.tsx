@@ -9,16 +9,17 @@ import { WebAuthentication } from '../src/utils/auth/WebAuthentication';
 class MyApp extends App {
 
   private pageContext: PageContext;
-  private auth: WebAuthentication;
+  private auth: WebAuthentication | undefined;
   constructor() {
     // @ts-ignore
     super();
     this.pageContext = getPageContext();
-    this.auth = new WebAuthentication();
   }
 
   componentDidMount() {
     // Remove the server-side injected CSS.
+    this.auth = new WebAuthentication();
+
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
@@ -29,6 +30,7 @@ class MyApp extends App {
     // tslint:disable-next-line:no-console
     console.log('CUSTOM ERROR HANDLING', error)
     // This is needed to render errors correctly in development / production
+    // @ts-ignore
     super.componentDidCatch(error, errorInfo)
   }
 

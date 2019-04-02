@@ -7,10 +7,9 @@ const Layout: React.FunctionComponent = ({ children }) => (
     <header>
       <nav>
         <Link href='/'><a>Home</a></Link> | {' '}
-        <Link href='/list-class'><a>List Example</a></Link> | {' '}
-        <Link href='/list-fc'><a>List Example (as Functional Component)</a></Link> | {' '}
         <Link href='/auth/sign-in'><a>Sign In</a></Link> | {' '}
-        <Link href='/profile'><a>Profile</a></Link> | {' '}
+        <Link href='/auth/sign-out'><a>Sign Out</a></Link> | {' '}
+        <Link href='/profile-class'><a>Profile</a></Link> | {' '}
         <Link href='/about'><a>About</a></Link> | {' '}
       </nav>
     </header>

@@ -1,8 +1,9 @@
-import { Auth0DecodedHash, Auth0Error, WebAuth } from 'auth0-js';
+import { Auth0DecodedHash, Auth0Error, WebAuth, Auth0Callback } from 'auth0-js';
 import autobind from 'autobind-decorator';
 import Router from 'next/router'
 import { Auth0Authentication } from './Auth0Authentication';
 import { AUTH_CONFIG } from './configuration';
+import { UserProfile } from '../../models';
 /**
  * Web based Auth0 authentication
  *
@@ -13,24 +14,92 @@ import { AUTH_CONFIG } from './configuration';
 export class WebAuthentication implements Auth0Authentication {
   /**
    * @property
+   * @type {number}
+   * @memberof WebAuthentication
+   */
+  // tslint:disable-next-line:no-any
+  /**
+   * @property
+   * @type {number}
+   * @memberof WebAuthentication
+   */
+  // tslint:disable-next-line:no-any
+  tokenRenewalTimeout!: number;
+  /**
+   * @property
+   * @readonly
+   * @memberof WebAuthentication
+   */
+  get accessToken() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('No access token found');
+    }
+    return accessToken;
+  }
+
+  /**
+   * @private
+   * @memberof WebAuthentication
+   */
+  requestedScopes = 'openid profile email read:messages write:messages';
+
+  /**
+   * @property
    * @private
    * @type {WebAuth}
    * @memberof WebAuthenticationManager
    */
-  auth0: WebAuth = new WebAuth({
-    domain: AUTH_CONFIG.domain,
-    clientID: AUTH_CONFIG.clientId,
-    redirectUri: AUTH_CONFIG.callbackUrl,
-    audience: `https://${AUTH_CONFIG.domain}/userinfo`,
-    responseType: 'token id_token',
-    scope: 'openid',
-  });
+  auth0: WebAuth = new WebAuth(AUTH_CONFIG);
 
   get authenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at')!);
     return new Date().getTime() < expiresAt;
+  }
+
+  /**
+   * @property
+   * @type {UserProfile}
+   * @memberof WebAuthentication
+   */
+  /**
+   * @property
+   * @type {UserProfile}
+   * @memberof WebAuthentication
+   */
+  userProfile!: UserProfile | null;
+
+  /**
+   * Creates instance of web authentication using Auth0
+   */
+  constructor() {
+    this.scheduleRenewal();
+  }
+
+  /**
+   * Get user profile from local storage
+   *
+   * @returns {Promise<UserProfile>}
+   * @memberof WebAuthentication
+   */
+  @autobind
+  getProfile(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const accessToken = this.accessToken;
+      this.auth0.client.userInfo(
+        accessToken,
+        (error: any, profile: any) => {
+          if (error) {
+            reject(error);
+          } else {
+            this.userProfile = profile;
+            resolve(this.userProfile);
+          }
+        },
+      );
+    });
   }
 
   @autobind
@@ -40,12 +109,12 @@ export class WebAuthentication implements Auth0Authentication {
 
   @autobind
   handleAuthentication(): void {
-    this.auth0.parseHash((e: Auth0Error, result: Auth0DecodedHash) => {
+    this.auth0.parseHash((e: any, result: any) => {
       if (result && result.accessToken && result.idToken) {
         this.setSession(result);
         Router.push('/index');
       } else if (e) {
-        Router.push('/index');
+        Router.push('/');
         // tslint:disable-next-line:no-console
         console.error(e);
         alert(`Error: ${e.error}. Check the console for further details.`);
@@ -55,12 +124,20 @@ export class WebAuthentication implements Auth0Authentication {
 
   @autobind
   setSession(authResult: Auth0DecodedHash): void {
-    const { accessToken, expiresIn, idToken } = authResult;
+    const { accessToken, expiresIn, idToken, scope } = authResult;
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify(expiresIn! * 1000 + new Date().getTime());
+    // If there is a value on the `scope` param from the authResult,
+    // use it to set scopes in the session for the user. Otherwise
+    // use the scopes as requested. If no scopes were requested,
+    // set it to nothing
+    // tslint:disable-next-line:no-string-literal
+    const scopes = scope || this.requestedScopes || '';
+    // const scopes = authResult.scope || this.requestedScopes || '';
     localStorage.setItem('access_token', accessToken!);
     localStorage.setItem('id_token', idToken!);
     localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('scopes', JSON.stringify(scopes));
     // navigate to the home route
     Router.push('/index');
   }
@@ -71,7 +148,55 @@ export class WebAuthentication implements Auth0Authentication {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    this.userProfile = null;
     // navigate to the home route
-    Router.push('/index');
+    Router.push('/');
+  }
+
+  /**
+   * @see {@link Auth0Authentication#renewToken}
+   * @memberof WebAuthentication
+   */
+  renewToken(): void {
+    this.auth0.renewAuth(
+      {
+        redirectUri: process.env.AUTH0_CALLBACK_URI,
+        usePostMessage: true,
+        postMessageDataType: 'auth0:silent-authentication',
+      },
+      (err: any, result: any) => {
+        if (err) {
+          alert(
+            `Could not get a new token using silent authentication (${
+            err.error
+            }).`,
+          );
+        } else {
+          this.setSession(result);
+          alert(`Successfully renewed auth!`);
+        }
+      },
+    );
+  }
+
+  @autobind
+  userHasScopes(scopes: string[]): boolean {
+    const grantedScopes = JSON.parse(localStorage.getItem('scopes')!).split(
+      ' ',
+    );
+    return scopes.every(scope => grantedScopes.includes(scope));
+  }
+
+  /**
+   * Reschedule token reneval
+   * @private
+   * @memberof WebAuthentication
+   */
+  private scheduleRenewal(): void {
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at')!);
+    const delay = expiresAt - Date.now();
+    if (delay > 0) {
+      this.tokenRenewalTimeout = window.setTimeout(() => this.renewToken(), delay);
+    }
   }
 }
