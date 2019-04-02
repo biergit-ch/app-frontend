@@ -2,7 +2,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
-import React from 'react';
+import React, { ErrorInfo } from 'react';
 import { WebAuthentication } from '../src/auth';
 import getPageContext, { PageContext } from '../src/getPageContext';
 
@@ -23,6 +23,13 @@ class MyApp extends App {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
+  }
+
+  componentDidCatch (error : Error, errorInfo: ErrorInfo) {
+    // tslint:disable-next-line:no-console
+    console.log('CUSTOM ERROR HANDLING', error)
+    // This is needed to render errors correctly in development / production
+    super.componentDidCatch(error, errorInfo)
   }
 
   render() {

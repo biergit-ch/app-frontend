@@ -18,10 +18,12 @@
     "@zeit/next-typescript": "^1.1.1",
     "auth0-js": "latest",
     "autobind-decorator": "^2.4.0",
+    "babel-plugin-styled-components": "^1.10.0",
     "jss": "next",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "styled-components": "^4.2.0",
     "styled-jsx": "^3.2.1"
   },
   "devDependencies": {
