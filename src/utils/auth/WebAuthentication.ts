@@ -1,9 +1,9 @@
-import { Auth0DecodedHash, Auth0Error, WebAuth, Auth0Callback } from 'auth0-js';
+import { Auth0DecodedHash, WebAuth } from 'auth0-js';
 import autobind from 'autobind-decorator';
 import Router from 'next/router'
+import { UserProfile } from '../../models';
 import { Auth0Authentication } from './Auth0Authentication';
 import { AUTH_CONFIG } from './configuration';
-import { UserProfile } from '../../models';
 /**
  * Web based Auth0 authentication
  *
@@ -24,7 +24,7 @@ export class WebAuthentication implements Auth0Authentication {
    * @memberof WebAuthentication
    */
   // tslint:disable-next-line:no-any
-  tokenRenewalTimeout!: number;
+  tokenRenewalTimeout: number;
   /**
    * @property
    * @readonly
@@ -64,18 +64,14 @@ export class WebAuthentication implements Auth0Authentication {
    * @type {UserProfile}
    * @memberof WebAuthentication
    */
-  /**
-   * @property
-   * @type {UserProfile}
-   * @memberof WebAuthentication
-   */
-  userProfile!: UserProfile | null;
+  userProfile: UserProfile | null;
 
   /**
    * Creates instance of web authentication using Auth0
    */
   constructor() {
     this.scheduleRenewal();
+    this.userProfile = null;
   }
 
   /**
@@ -180,7 +176,7 @@ export class WebAuthentication implements Auth0Authentication {
   }
 
   @autobind
-  userHasScopes(scopes: string[]): boolean {
+  userHasScopes(scopes: Array<string>): boolean {
     const grantedScopes = JSON.parse(localStorage.getItem('scopes')!).split(
       ' ',
     );

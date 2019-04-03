@@ -26,7 +26,7 @@ export interface Auth0Authentication {
    * @type {UserProfile}
    * @memberof Auth0Authentication
    */
-  readonly userProfile: UserProfile;
+  readonly userProfile: UserProfile | null;
   /**
    * Start authentication session
    * @memberof Auth0Authentication

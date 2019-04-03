@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { UserProfile } from '../src/models';
 import { Auth0Authentication } from '../src/utils/auth/Auth0Authentication';
-import loading from '../static/images/loading.svg';
 
 const useStyles = makeStyles({
   root: {
@@ -37,16 +36,14 @@ export interface ProfileProps {
 
 function Profile(props: ProfileProps) {
   const classes = useStyles({});
-  // tslint:disable-next-line:no-debugger
-  debugger;
-  const [userProfile, setUserProfile] = React.useState<UserProfile>(props.auth.userProfile);
+  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(props.auth.userProfile);
 
   React.useEffect(() => {
-    // tslint:disable-next-line:no-debugger
-    debugger;
-    props.auth.getProfile().then((res: UserProfile) => {
-      setUserProfile(res);
-    })
+    if (props.auth.authenticated) {
+      props.auth.getProfile().then((res: UserProfile) => {
+        setUserProfile(res);
+      })
+    }
     // Specify how to clean up after this effect:
     return function cleanup() {
       // tslint:disable-next-line:no-console
@@ -57,7 +54,7 @@ function Profile(props: ProfileProps) {
   if (!userProfile) {
     return (
       <div>
-        <img src={loading} alt="loading" />
+        <img src="/static/images/loading.svg" alt="loading" />
       </div>
     );
   } else {
