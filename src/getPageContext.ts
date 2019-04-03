@@ -1,6 +1,6 @@
 import green from '@material-ui/core/colors/green';
 import purple from '@material-ui/core/colors/purple';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, Theme } from '@material-ui/core/styles';
 import { MuiThemeProviderProps } from '@material-ui/core/styles/MuiThemeProvider';
 import { createGenerateClassName } from '@material-ui/styles';
 import { GenerateClassName, SheetsRegistry } from 'jss';
@@ -23,8 +23,11 @@ const theme = createMuiTheme({
 });
 
 export interface PageContext extends MuiThemeProviderProps {
+  theme: Theme;
+  sheetsManager: Map<any, any>;
   generateClassName: GenerateClassName<string>; // not sure what goes here
   sheetsRegistry: SheetsRegistry;
+  children: any;
 }
 
 export default function(): PageContext {
