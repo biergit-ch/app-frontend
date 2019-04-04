@@ -42,6 +42,27 @@ module.exports = moduleExists('next-offline') ? withOffline(withTypescript({
             test: /\.svg$/,
             loader: 'svg-inline-loader'
         });
+
+        // nextConfig.exportPathMap = async function (defaultPathMap) {
+        //     return {
+        //         '/': {
+        //             page: '/index'
+        //         },
+        //         '/about': {
+        //             page: '/about'
+        //         },
+        //         '/profile': {
+        //             page: '/profile-class'
+        //         },
+        //         '/g/12': {
+        //             page: '/group',
+        //             query: {
+        //                 title: 'group 12'
+        //             }
+        //         }
+        //     }
+        // }
+
         return nextConfig;
     }
 })) : nextConfig
