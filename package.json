@@ -19,6 +19,7 @@
     "auth0-js": "latest",
     "autobind-decorator": "~2.4.0",
     "babel-plugin-styled-components": "~1.10.0",
+    "cross-env": "^5.2.0",
     "dotenv": "~7.0.0",
     "express": "^4.16.4",
     "jss": "next",
