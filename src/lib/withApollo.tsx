@@ -4,13 +4,7 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { getDataFromTree } from 'react-apollo';
-import {
-  ApolloContext,
-  InitApolloClient,
-  WithApolloOptions,
-  WithApolloProps,
-  WithApolloState
-} from '../../global'
+import { ApolloContext, InitApolloClient, WithApolloOptions, WithApolloProps, WithApolloState } from '../../types';
 import initApollo from './init-apollo';
 
 const ssrMode = !process.browser;

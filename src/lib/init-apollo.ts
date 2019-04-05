@@ -1,7 +1,7 @@
 import ApolloClient from 'apollo-client';
 // Polyfill fetch
 import 'isomorphic-unfetch';
-import { InitApolloClient, InitApolloOptions } from '../../global';
+import { InitApolloClient, InitApolloOptions } from '../../types';
 
 let _apolloClient: ApolloClient<any>;
 
@@ -39,7 +39,9 @@ function getClient<TCache>(
 
   const client = clientFn(options);
 
-  if (options.initialState) client.cache.restore(options.initialState);
+  if (options.initialState) {
+    client.cache.restore(options.initialState);
+  }
 
   return client;
 }
