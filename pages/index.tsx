@@ -1,3 +1,4 @@
+import { Theme, withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -5,20 +6,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/styles';
+import { createStyles, WithStyles } from '@material-ui/styles';
+import { ApolloClient } from 'apollo-boost';
 import React from 'react';
 import Layout from '../components/Layout';
 import { Auth0Authentication } from '../src/utils/auth/Auth0Authentication';
-import { ApolloClient } from 'apollo-boost';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    textAlign: 'center',
-    paddingTop: theme.spacing(20),
-  },
-}));
+const styles = (theme: Theme) =>
+  createStyles({
+    root: {
+      textAlign: 'center',
+      paddingTop: theme.spacing(20),
+    },
+  });
 
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   auth: Auth0Authentication,
   pathname: string,
   apollo: ApolloClient<any>
@@ -29,8 +31,6 @@ interface State {
 }
 
 class Index extends React.Component<Props, State> {
-  classes = useStyles({});
-
   constructor(props: Props, state: State) {
     super(props, state);
     this.state = {
@@ -50,9 +50,11 @@ class Index extends React.Component<Props, State> {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
       <Layout>
-        <div className={this.classes.root}>
+        <div className={classes.root}>
           <Dialog open={this.state.open} onClose={() => this.handleClose()}>
             <DialogTitle>Sample Dialog</DialogTitle>
             <DialogContent>
@@ -83,4 +85,4 @@ class Index extends React.Component<Props, State> {
 
 }
 
-export default Index;
+export default withStyles(styles as any)(Index as any);
