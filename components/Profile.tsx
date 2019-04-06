@@ -22,6 +22,7 @@ const useStyles = makeStyles({
     maxWidth: 345,
     margin: '0 auto',
     justifyContent: 'center',
+    textAlign: 'center',
   },
   media: {
     height: 128,
@@ -53,8 +54,11 @@ function Profile(props: ProfileProps) {
 
   if (!userProfile) {
     return (
-      <div>
+      <div className={classes.card}>
         <img src="/static/images/loading.svg" alt="loading" />
+        <Typography component="p">
+          Pouring Beer
+        </Typography>
       </div>
     );
   } else {
