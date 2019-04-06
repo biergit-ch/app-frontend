@@ -1,5 +1,5 @@
 import { withRouter, WithRouterProps } from 'next/router'
-import Layout from '../components/Layout';
+import Layout from '../components/common/Layout';
 
 const GroupContent = withRouter((props: WithRouterProps) => (
   <div>

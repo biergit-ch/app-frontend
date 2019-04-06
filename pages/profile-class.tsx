@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import * as React from 'react'
 
-import Layout from '../components/Layout'
+import Layout from '../components/common/Layout'
 import Profile from '../components/Profile'
 import { Auth0Authentication } from '../src/utils/auth/Auth0Authentication';
 

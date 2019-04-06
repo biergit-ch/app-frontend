@@ -3,13 +3,13 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, WithStyles } from '@material-ui/styles';
 import { ApolloClient } from 'apollo-boost';
 import React from 'react';
-import Layout from '../components/Layout';
+import Layout from '../components/common/Layout';
+import PokemonList from '../components/PokemonList';
 import { Auth0Authentication } from '../src/utils/auth/Auth0Authentication';
 
 const styles = (theme: Theme) =>
@@ -19,6 +19,7 @@ const styles = (theme: Theme) =>
       paddingTop: theme.spacing(20),
     },
   });
+
 
 interface Props extends WithStyles<typeof styles> {
   auth: Auth0Authentication,
@@ -47,6 +48,7 @@ class Index extends React.Component<Props, State> {
   sampleGraphQLRequest() {
     // tslint:disable-next-line:no-console
     console.log("sampleGraphQLRequest");
+
   }
 
   render() {
@@ -56,9 +58,9 @@ class Index extends React.Component<Props, State> {
       <Layout>
         <div className={classes.root}>
           <Dialog open={this.state.open} onClose={() => this.handleClose()}>
-            <DialogTitle>Sample Dialog</DialogTitle>
+            <DialogTitle>Pokemons</DialogTitle>
             <DialogContent>
-              <DialogContentText>1-2-3-4-5</DialogContentText>
+              <PokemonList />
             </DialogContent>
             <DialogActions>
               <Button color="primary" onClick={() => this.sampleGraphQLRequest()}>
@@ -73,13 +75,13 @@ class Index extends React.Component<Props, State> {
             BIERGIT
         </Typography>
           <Typography variant="subtitle1" gutterBottom={true}>
-            app-frontend
+            index
         </Typography>
           <Button variant="contained" color="secondary" onClick={() => this.handleClick()}>
-            Sample dialog
+            Show Pokemons
         </Button>
         </div>
-      </Layout >
+      </Layout>
     );
   }
 
