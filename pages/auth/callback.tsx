@@ -6,7 +6,7 @@ export default class SignedIn extends React.Component {
         const auth = new WebAuthentication();
         auth.handleAuthentication();
     }
-    render() {
+    render() : any {
         return null
     }
 }

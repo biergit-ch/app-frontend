@@ -1,18 +1,25 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
+import { ApolloClient } from 'apollo-boost';
 import App, { Container } from 'next/app';
 import Head from 'next/head';
 import React, { ErrorInfo } from 'react';
+import { ApolloProvider } from 'react-apollo';
 import getPageContext, { PageContext } from '../src/getPageContext';
+import withApollo from '../src/lib/withApollo';
 import { WebAuthentication } from '../src/utils/auth/WebAuthentication';
 
-class MyApp extends App {
+interface AppProps {
+  apollo: ApolloClient<any>;
+}
+
+class MyApp extends App<AppProps> {
 
   private pageContext: PageContext;
   private auth: WebAuthentication | undefined;
-  constructor() {
+  constructor(props : AppProps) {
     // @ts-ignore
-    super();
+    super(props);
     this.pageContext = getPageContext();
   }
 
@@ -35,7 +42,7 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apollo } = this.props;
     return (
       <Container>
         <Head>
@@ -54,7 +61,9 @@ class MyApp extends App {
             <CssBaseline />
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
-            <Component pageContext={this.pageContext} {...pageProps} auth={this.auth} />
+            <ApolloProvider client={apollo}>
+              <Component pageContext={this.pageContext} {...pageProps} auth={this.auth} />
+            </ApolloProvider>
           </ThemeProvider>
         </StylesProvider>
       </Container>
@@ -62,4 +71,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp;
+export default withApollo(MyApp);

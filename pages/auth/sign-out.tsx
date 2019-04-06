@@ -6,7 +6,7 @@ export default class SignOut extends React.Component {
         const auth = new WebAuthentication();
         auth.logout();
     }
-    render() {
+    render(): any {
         return null
     }
 }

@@ -7,7 +7,7 @@ export default class SignIn extends React.Component {
     const webAuth = new WebAuthentication();
     webAuth.login();
   }
-  render () {
+  render () : any {
     return null
   }
 }

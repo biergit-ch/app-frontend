@@ -11,6 +11,7 @@
       "member-access": false,
       "max-classes-per-file": false,
       "variable-name": false,
+      "jsx-no-lambda": false,
       "array-type": [true, "generic"]
     },
     "rulesDirectory": [],
