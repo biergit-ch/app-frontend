@@ -17,7 +17,7 @@ class MyApp extends App<AppProps> {
 
   private pageContext: PageContext;
   private auth: WebAuthentication | undefined;
-  constructor(props : AppProps) {
+  constructor(props: AppProps) {
     // @ts-ignore
     super(props);
     this.pageContext = getPageContext();
@@ -25,8 +25,7 @@ class MyApp extends App<AppProps> {
 
   componentDidMount() {
     // Remove the server-side injected CSS.
-    this.auth = new WebAuthentication();
-
+    this.auth = new WebAuthentication()
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
@@ -62,7 +61,7 @@ class MyApp extends App<AppProps> {
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
             <ApolloProvider client={apollo}>
-              <Component pageContext={this.pageContext} {...pageProps} auth={this.auth} />
+              <Component pageContext={this.pageContext} {...pageProps} auth={this.auth}/>
             </ApolloProvider>
           </ThemeProvider>
         </StylesProvider>

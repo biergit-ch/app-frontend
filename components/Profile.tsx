@@ -35,7 +35,7 @@ export interface ProfileProps {
   auth: Auth0Authentication;
 }
 
-function Profile(props: ProfileProps) {
+export default function Profile(props: ProfileProps) {
   const classes = useStyles({});
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(props.auth.userProfile);
 
@@ -96,5 +96,3 @@ function Profile(props: ProfileProps) {
     );
   }
 }
-
-export default Profile;

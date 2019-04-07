@@ -1,5 +1,5 @@
-import green from '@material-ui/core/colors/green';
-import purple from '@material-ui/core/colors/purple';
+import amber from '@material-ui/core/colors/amber';
+import red from '@material-ui/core/colors/red';
 import { createMuiTheme, Theme } from '@material-ui/core/styles';
 import { MuiThemeProviderProps } from '@material-ui/core/styles/MuiThemeProvider';
 import { createGenerateClassName } from '@material-ui/styles';
@@ -10,14 +10,14 @@ import { GenerateClassName, SheetsRegistry } from 'jss';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: purple[300],
-      main: purple[500],
-      dark: purple[700],
+      light: amber[300],
+      main: amber[500],
+      dark: amber[700],
     },
     secondary: {
-      light: green[300],
-      main: green[500],
-      dark: green[700],
+      light: red[300],
+      main: red[500],
+      dark: red[700],
     },
   },
 });
@@ -39,6 +39,6 @@ export default function(): PageContext {
     sheetsRegistry: new SheetsRegistry(),
     // The standard class name generator.
     generateClassName: createGenerateClassName(),
-    children: undefined,
+    children: undefined
   };
 }
