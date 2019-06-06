@@ -10,7 +10,6 @@ import { ApolloClient } from 'apollo-boost';
 import React from 'react';
 import Layout from '../components/common/Layout';
 import PokemonList from '../components/PokemonList';
-import { Auth0Authentication } from '../src/utils/auth/Auth0Authentication';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -22,9 +21,9 @@ const styles = (theme: Theme) =>
 
 
 interface Props extends WithStyles<typeof styles> {
-  auth: Auth0Authentication,
   pathname: string,
-  apollo: ApolloClient<any>
+  apollo: ApolloClient<any>,
+  user: any
 }
 
 interface State {
@@ -34,6 +33,7 @@ interface State {
 class Index extends React.Component<Props, State> {
   constructor(props: Props, state: State) {
     super(props, state);
+    debugger;
     this.state = {
       open: false,
     };
@@ -52,10 +52,10 @@ class Index extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, user } = this.props;
+    debugger;
     return (
-      <Layout>
+      <Layout user={user}>
         <div className={classes.root}>
           <Dialog open={this.state.open} onClose={() => this.handleClose()}>
             <DialogTitle>Pokemons</DialogTitle>

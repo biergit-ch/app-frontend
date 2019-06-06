@@ -9,7 +9,6 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
 import { UserProfile } from '../src/models';
-import { Auth0Authentication } from '../src/utils/auth/Auth0Authentication';
 
 const useStyles = makeStyles({
   root: {
@@ -32,16 +31,16 @@ const useStyles = makeStyles({
   }
 });
 export interface ProfileProps {
-  auth: Auth0Authentication;
+  user: any;
 }
 
 export default function Profile(props: ProfileProps) {
   const classes = useStyles({});
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(props.auth.userProfile);
+  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(props.user);
 
   React.useEffect(() => {
-    if (props.auth.authenticated) {
-      props.auth.getProfile().then((res: UserProfile) => {
+    if (props.user.authenticated) {
+      props.user.getProfile().then((res: UserProfile) => {
         setUserProfile(res);
       })
     }

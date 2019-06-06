@@ -1,6 +1,10 @@
 import { withRouter, WithRouterProps } from 'next/router'
 import Layout from '../components/common/Layout';
 
+interface GroupProps {
+  user: any;
+}
+
 const GroupContent = withRouter((props: WithRouterProps) => (
   <div>
     <h1>{props.router.query.title}</h1>
@@ -8,9 +12,9 @@ const GroupContent = withRouter((props: WithRouterProps) => (
   </div>
 ));
 
-function Group() {
+function Group(props : GroupProps) {
   return (
-    <Layout>
+    <Layout user={props.user}>
       <GroupContent />
     </Layout>
   )

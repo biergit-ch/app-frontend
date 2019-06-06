@@ -9,9 +9,6 @@ import HomeIcon from '@material-ui/icons/Home'
 import { createStyles, WithStyles, withStyles } from '@material-ui/styles';
 import Link from 'next/link';
 import * as React from 'react';
-import getPageContext from '../../src/getPageContext';
-import { Auth0Authentication } from '../../src/utils/auth/Auth0Authentication';
-
 
 const styles = createStyles({
   root: {
@@ -28,21 +25,30 @@ const styles = createStyles({
 
 
 export interface AppNavBarProps extends WithStyles<typeof styles> {
-  auth: Auth0Authentication;
+  user: any;
 }
 class AppNavBar extends React.Component<AppNavBarProps>{
 
-  signInLink = React.forwardRef((props, ref) => <Link href="/auth/sign-in"><a>signin</a></Link>);
-  signOutLink = React.forwardRef((props, ref) => <Link href="/auth/sign-out"><a>signout</a></Link>);
-  profileLink = React.forwardRef((props, ref) => <Link href="/profile-class"><a>profile</a></Link>);
-  groupLink = React.forwardRef((props, ref) => <Link href="/group?title=Group12" as="g/Group12"><a>group</a></Link>);
-  aboutLink = React.forwardRef((props, ref) => <Link href="/about"><a>about</a></Link>);
+  signInLink = React.forwardRef((_props, _ref) => <Link href="/auth/sign-in"><a>signin</a></Link>);
+  signOutLink = React.forwardRef((_props, _ref) => <Link href="/auth/sign-out"><a>signout</a></Link>);
+  profileLink = React.forwardRef((_props, _ref) => <Link href="/profile-class"><a>profile</a></Link>);
+  groupLink = React.forwardRef((_props, _ref) => <Link href="/group?title=Group12" as="g/Group12"><a>group</a></Link>);
+  aboutLink = React.forwardRef((_props, _ref) => <Link href="/about"><a>about</a></Link>);
+
+  constructor(props: AppNavBarProps) {
+    super(props);
+    // tslint:disable-next-line:no-debugger
+    debugger;
+  }
 
   render() {
+    // tslint:disable-next-line:no-debugger
+    debugger;
     const { classes } = this.props;
     const authenticated = false;
+    // const authenticated = this.props.auth.authenticated;
     return (
-      <div className={classes.root}> 
+      <div className={classes.root}>
         <AppBar position="static" color="primary">
           <Toolbar>
             <IconButton
@@ -59,19 +65,19 @@ class AppNavBar extends React.Component<AppNavBarProps>{
               Biergit
             </Typography>
             {authenticated && (
-              <Button color="inherit" component={this.aboutLink}/>
+              <Button color="inherit" component={this.aboutLink} />
             )}
             {authenticated && (
-              <Button color="inherit" component={this.groupLink}/>
+              <Button color="inherit" component={this.groupLink} />
             )}
             {authenticated && (
-              <Button color="inherit" component={this.profileLink}/>
+              <Button color="inherit" component={this.profileLink} />
             )}
             {!authenticated && (
-              <Button color="inherit" component={this.signInLink}/>
+              <Button color="inherit" component={this.signInLink} />
             )}
             {authenticated && (
-              <Button color="inherit" component={this.signOutLink}/>
+              <Button color="inherit" component={this.signOutLink} />
             )}
           </Toolbar>
         </AppBar>

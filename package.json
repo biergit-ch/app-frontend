@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "cross-env NODE_ENV=production node ./src/server.js",
     "type-check": "tsc"
   },
   "repository": "https://github.com/biergit-ch/app-frontend",
@@ -22,10 +22,15 @@
     "autobind-decorator": "~2.4.0",
     "babel-plugin-styled-components": "~1.10.0",
     "cross-env": "^5.2.0",
-    "dotenv": "~7.0.0",
+    "dotenv": "^8.0.0",
+    "dotenv-webpack": "^1.7.0",
     "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "passport": "^0.4.0",
+    "passport-auth0": "^1.1.0",
     "graphql": "^14.2.1",
     "isomorphic-unfetch": "^3.0.0",
+    "isomorphic-fetch": "^2.2.1",
     "jss": "next",
     "next": "8.0.4",
     "next-images": "~1.1.1",
@@ -35,7 +40,8 @@
     "react-apollo": "^2.5.3",
     "react-dom": "latest",
     "styled-components": "~4.2.0",
-    "styled-jsx": "~3.2.1"
+    "styled-jsx": "~3.2.1",
+    "uid-safe": "^2.1.5"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "~7.4.0",
@@ -48,13 +54,11 @@
     "@types/styled-components": "~4.1.12",
     "@types/styled-jsx": "~2.2.7",
     "@types/webpack": "~4.4.26",
+    "@types/passport": "^1.0.0",
     "next-offline": "4.0.0-beta.0",
     "prettier": "~1.16.4",
     "pretty-quick": "~1.10.0",
     "svg-inline-loader": "~0.8.0",
-    "tslint": "~5.15.0",
-    "tslint-config-prettier": "~1.18.0",
-    "tslint-react": "~4.0.0",
     "typescript": "~3.4.1"
   }
 }

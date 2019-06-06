@@ -7,16 +7,32 @@ import React, { ErrorInfo } from 'react';
 import { ApolloProvider } from 'react-apollo';
 import getPageContext, { PageContext } from '../src/getPageContext';
 import withApollo from '../src/lib/withApollo';
-import { WebAuthentication } from '../src/utils/auth/WebAuthentication';
 
 interface AppProps {
   apollo: ApolloClient<any>;
 }
 
-class MyApp extends App<AppProps> {
+interface AppState {
+  user: any;
+}
+
+
+class MyApp extends App<AppProps, AppState> {
 
   private pageContext: PageContext;
-  private auth: WebAuthentication | undefined;
+
+
+  static async getInitialProps({ Component, ctx }: any) {
+    let pageProps: any = {};
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+    if (ctx.req && ctx.req.session.passport) {
+      pageProps.user = ctx.req.session.passport.user;
+    }
+    return { pageProps };
+  }
+
   constructor(props: AppProps) {
     // @ts-ignore
     super(props);
@@ -25,7 +41,6 @@ class MyApp extends App<AppProps> {
 
   componentDidMount() {
     // Remove the server-side injected CSS.
-    this.auth = new WebAuthentication()
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
@@ -61,7 +76,7 @@ class MyApp extends App<AppProps> {
             {/* Pass pageContext to the _document though the renderPage enhancer
                 to render collected styles on server side. */}
             <ApolloProvider client={apollo}>
-              <Component pageContext={this.pageContext} {...pageProps} auth={this.auth}/>
+              <Component pageContext={this.pageContext} {...pageProps} user={this.state.user} />
             </ApolloProvider>
           </ThemeProvider>
         </StylesProvider>

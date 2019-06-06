@@ -1,15 +1,14 @@
+require("dotenv").config();
+
 const withOffline = moduleExists('next-offline') ?
     require('next-offline') : {};
 
 const withTypescript = moduleExists('@zeit/next-typescript') ?
     require('@zeit/next-typescript') : {};
 
-const {
-    parsed: localEnv
-} = require('dotenv').config()
 
-const webpack = moduleExists('webpack') ?
-    require('webpack') : {};
+const path = require("path");
+const Dotenv = require("dotenv-webpack");
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -37,7 +36,6 @@ const nextConfig = {
 
 module.exports = moduleExists('next-offline') ? withOffline(withTypescript({
     webpack: (nextConfig, options) => {
-        nextConfig.plugins.push(new webpack.EnvironmentPlugin(localEnv));
         nextConfig.module.rules.push({
             test: /\.svg$/,
             loader: 'svg-inline-loader'
@@ -62,6 +60,15 @@ module.exports = moduleExists('next-offline') ? withOffline(withTypescript({
         //         }
         //     }
         // }
+        nextConfig.plugins = [
+            ...nextConfig.plugins,
+
+            // Read the .env file
+            new Dotenv({
+                path: path.join(__dirname, ".env"),
+                systemvars: true
+            })
+        ];
 
         return nextConfig;
     }

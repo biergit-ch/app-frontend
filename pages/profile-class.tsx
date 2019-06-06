@@ -3,21 +3,20 @@ import * as React from 'react'
 
 import Layout from '../components/common/Layout'
 import Profile from '../components/Profile'
-import { Auth0Authentication } from '../src/utils/auth/Auth0Authentication';
 
 interface Props {
-  auth: Auth0Authentication,
+  user: any,
   pathname: string,
 }
 
 class ProfileClass extends React.Component<Props> {
   render() {
-    const { auth, pathname } = this.props
+    const { user, pathname } = this.props
     return (
-      <Layout>
+      <Layout user={user}>
         <h1>Profile Example</h1>
         <p>You are currently on: {pathname}</p>
-        <Profile auth={auth}/>
+        <Profile user={user} />
         <p><Link href='/'><a>Go home</a></Link></p>
       </Layout>
     )
