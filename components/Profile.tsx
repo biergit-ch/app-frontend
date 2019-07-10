@@ -12,10 +12,10 @@ import { UserProfile } from '../src/models';
 
 const useStyles = makeStyles({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   card: {
     maxWidth: 345,
@@ -27,8 +27,8 @@ const useStyles = makeStyles({
     height: 128,
     width: 128,
     objectFit: 'cover',
-    margin: '0 auto'
-  }
+    margin: '0 auto',
+  },
 });
 export interface ProfileProps {
   user: any;
@@ -42,7 +42,7 @@ export default function Profile(props: ProfileProps) {
     if (props.user.authenticated) {
       props.user.getProfile().then((res: UserProfile) => {
         setUserProfile(res);
-      })
+      });
     }
     // Specify how to clean up after this effect:
     return function cleanup() {

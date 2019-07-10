@@ -3,10 +3,6 @@ require("dotenv").config();
 const withOffline = moduleExists('next-offline') ?
     require('next-offline') : {};
 
-const withTypescript = moduleExists('@zeit/next-typescript') ?
-    require('@zeit/next-typescript') : {};
-
-
 const path = require("path");
 const Dotenv = require("dotenv-webpack");
 
@@ -34,7 +30,7 @@ const nextConfig = {
     }
 };
 
-module.exports = moduleExists('next-offline') ? withOffline(withTypescript({
+module.exports = moduleExists('next-offline') ? withOffline({
     webpack: (nextConfig, options) => {
         nextConfig.module.rules.push({
             test: /\.svg$/,
@@ -72,7 +68,7 @@ module.exports = moduleExists('next-offline') ? withOffline(withTypescript({
 
         return nextConfig;
     }
-})) : nextConfig
+}) : nextConfig
 
 function moduleExists(name) {
     try {

@@ -1,4 +1,3 @@
-// tslint:disable-next-line:no-namespace
 declare namespace NodeJS {
   interface ProcessEnv {
     GITHUB_AUTH_TOKEN: string;

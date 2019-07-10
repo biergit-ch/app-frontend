@@ -1,7 +1,7 @@
-export default ({ message } : any) => (
-    <aside>
-      {message}
-      <style jsx>{`
+export default ({ message }: any) => (
+  <aside>
+    {message}
+    <style jsx={true}>{`
         aside {
           padding: 1.5em;
           font-size: 14px;
@@ -9,6 +9,5 @@ export default ({ message } : any) => (
           background-color: red;
         }
       `}</style>
-    </aside>
-  )
-  
+  </aside>
+);

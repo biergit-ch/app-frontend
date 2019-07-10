@@ -1,26 +1,21 @@
 import Link from 'next/link';
-import * as React from 'react'
+import * as React from 'react';
 
-import Layout from '../components/common/Layout'
-import Profile from '../components/Profile'
+import Layout from '../components/common/Layout';
+import Profile from '../components/Profile';
 
-interface Props {
-  user: any,
-  pathname: string,
+interface ProfileProps {
+  user: any;
+  pathname: string;
 }
 
-class ProfileClass extends React.Component<Props> {
-  render() {
-    const { user, pathname } = this.props
-    return (
-      <Layout user={user}>
-        <h1>Profile Example</h1>
-        <p>You are currently on: {pathname}</p>
-        <Profile user={user} />
-        <p><Link href='/'><a>Go home</a></Link></p>
-      </Layout>
-    )
-  }
+export default function ProfileClass(props: ProfileProps) {
+  return (
+    <Layout user={props.user}>
+      <h1>Profile Example</h1>
+      <p>You are currently on: {props.pathname}</p>
+      <Profile user={props.user} />
+      <p><Link href='/'><a>Go home</a></Link></p>
+    </Layout>
+  );
 }
-
-export default ProfileClass

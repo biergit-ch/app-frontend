@@ -7,9 +7,13 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "es2017"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
+    "target": "esnext",
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -18,6 +22,17 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "esnext"
-  }
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx", "src/server.ts", "server/auth-routes.js"
+  ]
 }

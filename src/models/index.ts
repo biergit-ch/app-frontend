@@ -1,1 +1,3 @@
-export { UserProfile } from './UserProfile';
+import { UserProfile } from './UserProfile';
+
+export type UserProfile = UserProfile;

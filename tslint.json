@@ -1,22 +1,25 @@
 {
     "defaultSeverity": "error",
-    "extends": ["tslint:latest", "tslint-react", "tslint-config-prettier"],
+    "extends": ["tslint:latest", "tslint-react"],
     "jsRules": {},
     "rules": {
-      "no-implicit-dependencies": [true, "dev"],
-      "interface-name": [true, "never-prefix"],
-      "object-literal-sort-keys": false,
-      "no-submodule-imports": false,
-      "no-angle-bracket-type-assertion": true,
-      "member-access": false,
-      "max-classes-per-file": false,
-      "variable-name": false,
-      "jsx-no-lambda": false,
-      "array-type": [true, "generic"]
+        "no-implicit-dependencies": [true, "dev"],
+        "interface-name": [true, "never-prefix"],
+        "object-literal-sort-keys": false,
+        "no-submodule-imports": false,
+        "no-angle-bracket-type-assertion": true,
+        "no-var-requires": false,
+        "quotemark": false,
+        "ordered-imports": false,
+        "member-access": false,
+        "max-classes-per-file": false,
+        "variable-name": false,
+        "jsx-no-lambda": false,
+        "jsx-no-multiline-js": false,
+        "array-type": [true, "generic"]
     },
     "rulesDirectory": [],
     "linterOptions": {
-      "exclude": ["**/node_modules/**"]
+        "exclude": ["**/node_modules/**"]
     }
-  }
-  
+}

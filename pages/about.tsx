@@ -3,24 +3,20 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 import Layout from '../components/common/Layout';
-import { Auth0Authentication } from '../src/utils/auth/Auth0Authentication';
+import { Theme } from '@material-ui/core';
 
-interface AboutProps {
-  auth: Auth0Authentication;
-}
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     textAlign: 'center',
     paddingTop: theme.spacing(20),
   },
 }));
 
-function About(props: AboutProps) {
+export default function About() {
   const classes = useStyles({});
 
   return (
-    <Layout auth={props.auth}>
+    <Layout user={null}>
       <div className={classes.root}>
         <Typography variant="h4" gutterBottom={true}>
           ABOUT
@@ -35,5 +31,3 @@ function About(props: AboutProps) {
     </Layout>
   );
 }
-
-export default About;
