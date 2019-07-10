@@ -11,7 +11,7 @@ const next_1 = __importDefault(require("next"));
 const passport_1 = __importDefault(require("passport"));
 const passport_auth0_1 = require("passport-auth0");
 const uid_safe_1 = __importDefault(require("uid-safe"));
-const authRoutes = require('./auth-routes');
+const auth_routes_1 = __importDefault(require("./auth-routes"));
 const dev = process.env.NODE_ENV !== "production";
 const app = next_1.default({ dev });
 const handle = app.getRequestHandler();
@@ -32,7 +32,7 @@ app.prepare().then(() => {
         domain: process.env.AUTH0_DOMAIN,
         clientID: process.env.AUTH0_CLIENT_ID,
         clientSecret: process.env.AUTH0_CLIENT_SECRET,
-        callbackURL: process.env.AUTH0_CALLBACK_URL,
+        callbackURL: process.env.AUTH0_CALLBACK_URI,
     }, 
     // tslint:disable-next-line: max-line-length
     (_accessToken, _refreshToken, _extraParams, profile, done) => {
@@ -45,7 +45,7 @@ app.prepare().then(() => {
     // 5 - adding Passport and authentication routes
     server.use(passport_1.default.initialize());
     server.use(passport_1.default.session());
-    server.use(authRoutes);
+    server.use(auth_routes_1.default);
     // 6 - you are restricting access to some routes
     const restrictAccess = (req, res, nextFunc) => {
         if (!req.isAuthenticated()) {
@@ -54,7 +54,6 @@ app.prepare().then(() => {
         nextFunc();
     };
     server.use("/profile", restrictAccess);
-    server.use("/share-thought", restrictAccess);
     // handling everything else with Next.js
     server.get("*", handle);
     http_1.default.createServer(server).listen(process.env.PORT, () => {

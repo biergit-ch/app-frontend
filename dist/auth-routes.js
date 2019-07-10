@@ -6,26 +6,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const passport_1 = __importDefault(require("passport"));
 const router = express_1.default.Router();
-router.get("/auth/login", passport_1.default.authenticate("auth0", {
+router.get("/api/auth/login", passport_1.default.authenticate("auth0", {
     scope: "openid email profile",
-}), (_req, res) => res.redirect("/"));
-router.get("/callback", (req, res, next) => {
-    passport_1.default.authenticate("auth0", (err, user) => {
-        if (err) {
-            return next(err);
-        }
-        if (!user) {
-            return res.redirect("/login");
-        }
-        req.logIn(user, (error) => {
-            if (error) {
-                return next(error);
-            }
-            res.redirect("/");
-        });
-    })(req, res, next);
+}), (_req, res) => {
+    res.redirect("/");
 });
-router.get("/auth/logout", (req, res) => {
+router.get("/api/auth/callback", passport_1.default.authenticate('auth0', { failureRedirect: '/' }), (req, res) => {
+    if (!req.user) {
+        throw new Error('user null');
+    }
+    res.redirect("/");
+});
+router.get("/api/auth/logout", (req, res) => {
     req.logout();
     const { AUTH0_DOMAIN, AUTH0_CLIENT_ID, BASE_URL, } = process.env;
     res.redirect(`https://${AUTH0_DOMAIN}/logout?client_id=${AUTH0_CLIENT_ID}&returnTo=${BASE_URL}`);
