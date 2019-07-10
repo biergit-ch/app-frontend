@@ -1,21 +1,15 @@
-import Link from 'next/link';
 import * as React from 'react';
 
-import Layout from '../components/common/Layout';
 import Profile from '../components/Profile';
+import PrivateRoute from '../components/common/PrivateRoute';
 
-interface ProfileProps {
-  user: any;
-  pathname: string;
-}
-
-export default function ProfileClass(props: ProfileProps) {
+export default function ProfileClass() {
   return (
-    <Layout user={props.user}>
+    <div>
       <h1>Profile Example</h1>
-      <p>You are currently on: {props.pathname}</p>
-      <Profile user={props.user} />
-      <p><Link href='/'><a>Go home</a></Link></p>
-    </Layout>
+      <PrivateRoute>
+        <Profile />
+      </PrivateRoute>
+    </div>
   );
 }

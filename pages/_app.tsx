@@ -4,6 +4,12 @@ import App from "next/app";
 import Head from "next/head";
 import React from "react";
 import theme from "../src/theme";
+import dynamic from 'next/dynamic';
+
+const DynamicRootWithNoSSR = dynamic(
+  () => import('./../components/common/Root'),
+  { ssr: false },
+);
 
 interface GetInitialProps {
   Component: any;
@@ -24,14 +30,13 @@ export default class BiergitApp extends App {
   }
 
   componentDidMount() {
-    // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
   }
+
   render() {
-    const { Component, pageProps } = this.props;
     return (
       <div>
         <Head>
@@ -39,7 +44,7 @@ export default class BiergitApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <DynamicRootWithNoSSR {...this.props} />
         </ThemeProvider>
       </div>
     );

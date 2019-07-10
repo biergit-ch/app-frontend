@@ -29,7 +29,7 @@ export interface AppNavBarProps extends WithStyles<typeof styles> {
 class AppNavBar extends React.Component<AppNavBarProps> {
 
   // tslint:disable-next-line: max-line-length
-  signInLink = React.forwardRef((_props, _ref) => <Link href={process.env.API_URI + "/auth/login"}><a>signin</a></Link>);
+  signInLink = React.forwardRef((_props, _ref) => <Link href="/profile-class"><a>signin</a></Link>);
   signOutLink = React.forwardRef((_props, _ref) => <Link href="/auth/logout"><a>signout</a></Link>);
   profileLink = React.forwardRef((_props, _ref) => <Link href="/profile-class"><a>profile</a></Link>);
   groupLink = React.forwardRef((_props, _ref) => <Link href="/group?title=Group12" as="g/Group12"><a>group</a></Link>);

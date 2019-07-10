@@ -1,6 +1,8 @@
 import * as React from 'react';
 import AppNavBar from './AppNavBar';
 import { Container, makeStyles, createStyles, Theme } from '@material-ui/core';
+import { useAuth0 } from '../../react-auth0-spa';
+import Loading from './Loading';
 
 interface LayoutProps {
   user: any;
@@ -32,6 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Layout(props: LayoutProps) {
   const classes = useStyles({});
+  const { loading }: any = useAuth0();
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className={classes.root}>
       <header>
